@@ -498,6 +498,7 @@ export default function InscripcionForm() {
         <Input
           label="Email"
           id="email"
+          required
           type="email"
           placeholder="tu@email.com"
           value={form.email}
@@ -507,6 +508,7 @@ export default function InscripcionForm() {
         <Input
           label="Teléfono"
           id="telefono"
+          required
           type="tel"
           placeholder="Ej: 3856 123456"
           value={form.telefono}
@@ -518,6 +520,7 @@ export default function InscripcionForm() {
       <Input
         label="Ciudad"
         id="ciudad"
+        required
         placeholder="Ej: La Banda"
         value={form.ciudad}
         onChange={handleChange('ciudad')}
