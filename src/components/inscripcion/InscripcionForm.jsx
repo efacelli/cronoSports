@@ -547,6 +547,7 @@ export default function InscripcionForm() {
 
       <ComprobanteUpload
         file={comprobante}
+        required
         onChange={setComprobante}
         error={errors.comprobante}
       />
