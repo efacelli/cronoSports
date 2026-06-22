@@ -1,6 +1,9 @@
 import InscripcionForm from '../components/inscripcion/InscripcionForm';
 
 export default function InscripcionPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <section className="bg-sand py-12">
       <div className="container-page">
