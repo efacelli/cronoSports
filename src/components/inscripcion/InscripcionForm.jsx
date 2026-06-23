@@ -332,7 +332,12 @@ export default function InscripcionForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitError('');
-    if (!validar()) return;
+    if (!validar()) {
+      setToast({ message: 'Revisá los campos marcados en rojo antes de continuar.', type: 'info' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      return;
+    }
     setSubmitting(true);
     try {
       const res = await crearInscripcion({
@@ -361,9 +366,11 @@ export default function InscripcionForm() {
         }
       });
     } catch (err) {
-      setSubmitError(
-        err.response?.data?.message || 'Ocurrió un error al registrar tu inscripción. Intentá nuevamente.'
-      );
+      const mensaje = err.response?.data?.message || 'Ocurrió un error al registrar tu inscripción. Intentá nuevamente.';
+      setSubmitError(mensaje);
+      setToast({ message: mensaje, type: 'info' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     } finally {
       setSubmitting(false);
     }
