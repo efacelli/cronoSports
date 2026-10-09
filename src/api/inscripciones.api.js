@@ -2,9 +2,10 @@ import axiosClient from './axiosClient';
 
 export const crearInscripcion = (data) => axiosClient.post('/inscripciones', data);
 
-export const subirComprobante = (idInscripcion, file) => {
+export const subirComprobante = (idInscripcion, comprobanteFile, certMedicoFile = null) => {
   const formData = new FormData();
-  formData.append('comprobante', file);
+  formData.append('comprobante', comprobanteFile);
+  if (certMedicoFile) formData.append('cert_medico', certMedicoFile);
 
   return axiosClient.post(`/inscripciones/${idInscripcion}/comprobante`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' }

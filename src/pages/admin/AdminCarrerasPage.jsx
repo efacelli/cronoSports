@@ -11,15 +11,15 @@ import Spinner from '../../components/common/Spinner';
 import { formatearFecha, formatearMoneda, TIPO_CARRERA_LABEL, ESTADO_CARRERA_LABEL } from '../../utils/formatters';
 
 const TIPO_OPTIONS = [
-  { value: 'running',  label: 'Running'  },
-  { value: 'duatlon',  label: 'Duatlón'  },
+  { value: 'running', label: 'Running' },
+  { value: 'duatlon', label: 'Duatlón' },
   { value: 'ciclismo', label: 'Ciclismo' },
   { value: 'triatlon', label: 'Triatlón' }
 ];
 
 const ESTADO_OPTIONS = [
-  { value: 'activa',     label: 'Activa'     },
-  { value: 'cerrada',    label: 'Cerrada'    },
+  { value: 'activa', label: 'Activa' },
+  { value: 'cerrada', label: 'Cerrada' },
   { value: 'finalizada', label: 'Finalizada' }
 ];
 
@@ -27,19 +27,22 @@ const FORM_VACIO = {
   nombre: '', tipo: 'running', fecha_evento: '', ubicacion: '',
   descripcion: '', cupo_maximo: '', precio_base: '', estado: 'activa',
   imagen_portada_url: '',
-  alias: '', cbu: '', whatsapp: '', url_mapa: '', imagen_recorrido_url: ''
+  alias: '', cbu: '', whatsapp: '', url_mapa: '', imagen_recorrido_url: '',
+  campo_talle: false, campo_club: false, campo_tel_emergencia: false,
+  campo_obra_social: false, campo_grupo_sanguineo: false,
+  campo_examen_medico: false, campo_cert_medico: false, campo_link_ironman: false
 };
 
 function CarreraForm({ initial, onSave, onCancel, idCarrera }) {
-  const [form, setForm]           = useState(initial || FORM_VACIO);
-  const [errors, setErrors]       = useState({});
-  const [saving, setSaving]       = useState(false);
+  const [form, setForm] = useState(initial || FORM_VACIO);
+  const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState('');
   const [todasCategorias, setTodasCategorias] = useState([]);
   const [catSeleccionadas, setCatSeleccionadas] = useState(initial?.categorias_ids || []);
 
   useEffect(() => {
-    getCategorias().then((r) => setTodasCategorias(r.data.data)).catch(() => {});
+    getCategorias().then((r) => setTodasCategorias(r.data.data)).catch(() => { });
   }, []);
 
   const toggleCategoria = (id) => {
@@ -53,9 +56,9 @@ function CarreraForm({ initial, onSave, onCancel, idCarrera }) {
 
   const validar = () => {
     const err = {};
-    if (!form.nombre.trim())  err.nombre       = 'El nombre es obligatorio';
-    if (!form.tipo)           err.tipo         = 'Seleccioná un tipo';
-    if (!form.fecha_evento)   err.fecha_evento = 'La fecha es obligatoria';
+    if (!form.nombre.trim()) err.nombre = 'El nombre es obligatorio';
+    if (!form.tipo) err.tipo = 'Seleccioná un tipo';
+    if (!form.fecha_evento) err.fecha_evento = 'La fecha es obligatoria';
     if (form.precio_base !== '' && Number(form.precio_base) < 0) err.precio_base = 'Debe ser ≥ 0';
     if (form.cupo_maximo !== '' && Number(form.cupo_maximo) < 0) err.cupo_maximo = 'Debe ser ≥ 0';
     setErrors(err);
@@ -125,6 +128,35 @@ function CarreraForm({ initial, onSave, onCancel, idCarrera }) {
             onChange={handleChange('descripcion')}
           />
         </div>
+      <fieldset className="space-y-3 rounded-lg border border-navy/10 bg-navy/5 p-4">
+        <legend className="text-xs font-semibold uppercase tracking-wide text-navy px-1">
+          Campos opcionales del formulario de inscripción
+        </legend>
+        <p className="text-xs text-slate">Activá los campos que quieras solicitar a los participantes de esta carrera.</p>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {[
+            ['campo_talle',           'Talle de remera'],
+            ['campo_club',            'Equipo o club'],
+            ['campo_tel_emergencia',  'Teléfono de emergencia'],
+            ['campo_obra_social',     'Obra social'],
+            ['campo_grupo_sanguineo', 'Grupo sanguíneo'],
+            ['campo_examen_medico',   'Fecha último examen médico'],
+            ['campo_cert_medico',     'Certificado médico (archivo)'],
+            ['campo_link_ironman',    'Link último Ironman']
+          ].map(([key, label]) => (
+            <label key={key} className="flex items-center gap-2 text-sm cursor-pointer">
+              <input
+                type="checkbox"
+                className="accent-coral"
+                checked={!!form[key]}
+                onChange={(e) => setForm((p) => ({ ...p, [key]: e.target.checked }))}
+              />
+              {label}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
       </fieldset>
 
       {/* Datos de pago */}
@@ -168,7 +200,7 @@ function CarreraForm({ initial, onSave, onCancel, idCarrera }) {
           <p className="text-xs text-warning">No hay categorías creadas. Creá categorías desde el menú "Categorías".</p>
         ) : (
           <div className="grid gap-1.5 sm:grid-cols-2">
-            {['masculino','femenino','otro'].map((sexo) => {
+            {['masculino', 'femenino', 'otro'].map((sexo) => {
               const grupo = todasCategorias.filter((c) => c.sexo === sexo);
               if (!grupo.length) return null;
               return (
@@ -209,17 +241,17 @@ function CarreraForm({ initial, onSave, onCancel, idCarrera }) {
 }
 
 const TIPO_COLOR = {
-  running:  'bg-coral/10 text-coral',
-  duatlon:  'bg-success/10 text-success',
+  running: 'bg-coral/10 text-coral',
+  duatlon: 'bg-success/10 text-success',
   ciclismo: 'bg-navy/10 text-navy'
 };
 
 export default function AdminCarrerasPage() {
-  const [carreras, setCarreras]     = useState([]);
-  const [loading, setLoading]       = useState(true);
-  const [error, setError]           = useState('');
+  const [carreras, setCarreras] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [modalCrear, setModalCrear] = useState(false);
-  const [editando, setEditando]     = useState(null);
+  const [editando, setEditando] = useState(null);
   const [eliminando, setEliminando] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
   const [archivando, setArchivando] = useState(null);
@@ -235,8 +267,8 @@ export default function AdminCarrerasPage() {
 
   useEffect(() => { fetchCarreras(); }, [fetchCarreras]);
 
-  const handleCrear    = async (data) => { await createCarrera(data);               setModalCrear(false); fetchCarreras(); };
-  const handleActualizar = async (data) => { await updateCarrera(editando.id, data); setEditando(null);    fetchCarreras(); };
+  const handleCrear = async (data) => { await createCarrera(data); setModalCrear(false); fetchCarreras(); };
+  const handleActualizar = async (data) => { await updateCarrera(editando.id, data); setEditando(null); fetchCarreras(); };
 
   const handleEliminar = async () => {
     setDeletingId(eliminando.id);
@@ -272,21 +304,29 @@ export default function AdminCarrerasPage() {
   };
 
   const formInitial = (c) => ({
-    nombre:               c.nombre              || '',
-    tipo:                 c.tipo                || 'running',
-    fecha_evento:         c.fecha_evento        ? c.fecha_evento.split('T')[0] : '',
-    ubicacion:            c.ubicacion           || '',
-    descripcion:          c.descripcion         || '',
-    cupo_maximo:          c.cupo_maximo         ?? '',
-    precio_base:          c.precio_base         ?? '',
-    estado:               c.estado              || 'activa',
-    imagen_portada_url:   c.imagen_portada_url  || '',
-    alias:                c.alias               || '',
-    cbu:                  c.cbu                 || '',
-    whatsapp:             c.whatsapp            || '',
-    url_mapa:             c.url_mapa            || '',
+    nombre: c.nombre || '',
+    tipo: c.tipo || 'running',
+    fecha_evento: c.fecha_evento ? c.fecha_evento.split('T')[0] : '',
+    ubicacion: c.ubicacion || '',
+    descripcion: c.descripcion || '',
+    cupo_maximo: c.cupo_maximo ?? '',
+    precio_base: c.precio_base ?? '',
+    estado: c.estado || 'activa',
+    imagen_portada_url: c.imagen_portada_url || '',
+    alias: c.alias || '',
+    cbu: c.cbu || '',
+    whatsapp: c.whatsapp || '',
+    url_mapa: c.url_mapa || '',
     imagen_recorrido_url: c.imagen_recorrido_url || '',
-    categorias_ids:       categoriasIniciales
+    categorias_ids: categoriasIniciales,
+    campo_talle: c.campo_talle || false,
+    campo_club: c.campo_club || false,
+    campo_tel_emergencia: c.campo_tel_emergencia || false,
+    campo_obra_social: c.campo_obra_social || false,
+    campo_grupo_sanguineo: c.campo_grupo_sanguineo || false,
+    campo_examen_medico: c.campo_examen_medico || false,
+    campo_cert_medico: c.campo_cert_medico || false,
+    campo_link_ironman: c.campo_link_ironman || false,
   });
 
   return (
@@ -333,8 +373,8 @@ export default function AdminCarrerasPage() {
 
               {/* Indicadores de pago configurado */}
               <div className="mt-2 flex flex-wrap gap-1">
-                {c.alias    && <span className="badge bg-success/10 text-success text-[10px]">Alias ✓</span>}
-                {c.cbu      && <span className="badge bg-success/10 text-success text-[10px]">CBU ✓</span>}
+                {c.alias && <span className="badge bg-success/10 text-success text-[10px]">Alias ✓</span>}
+                {c.cbu && <span className="badge bg-success/10 text-success text-[10px]">CBU ✓</span>}
                 {c.whatsapp && <span className="badge bg-[#25D366]/10 text-[#1ebe5d] text-[10px]">WhatsApp ✓</span>}
               </div>
 

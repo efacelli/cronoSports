@@ -14,13 +14,17 @@ import Toast from '../common/Toast';
 
 const SEXO_OPTIONS = [
   { value: 'masculino', label: 'Masculino' },
-  { value: 'femenino',  label: 'Femenino'  },
-  { value: 'otro',      label: 'Otro / Prefiero no decir' }
+  { value: 'femenino', label: 'Femenino' },
+  { value: 'otro', label: 'Otro / Prefiero no decir' }
 ];
 
 const INITIAL_FORM = {
   id_carrera: '', id_modalidad: '', apellido: '', nombre: '', dni: '',
-  fecha_nacimiento: '', sexo: '', email: '', telefono: '', ciudad: '', observaciones: ''
+  fecha_nacimiento: '', sexo: '', email: '', telefono: '', ciudad: '',
+  observaciones: '',
+  // Campos opcionales por carrera
+  talle: '', club: '', tel_emergencia: '', obra_social: '',
+  grupo_sanguineo: '', fecha_examen_medico: '', link_ironman: ''
 };
 
 // ─── Botón copiar con feedback ──────────────────────────────────────────────
@@ -87,8 +91,8 @@ function DatosPago({ carrera, modalidadSeleccionada, onCopied }) {
 
   // Monto = precio_base de la carrera + precio_extra de la modalidad
   const precioExtra = modalidadSeleccionada ? Number(modalidadSeleccionada.precio_extra || 0) : 0;
-  const montoTotal  = Number(precio_base || 0) + precioExtra;
-  const montoFmt    = montoTotal.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+  const montoTotal = Number(precio_base || 0) + precioExtra;
+  const montoFmt = montoTotal.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
 
   const waUrl = whatsapp
     ? `https://wa.me/${whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent('Hola! Tengo una consulta sobre las inscripciones de ' + carrera.nombre)}`
@@ -150,7 +154,7 @@ function DatosPago({ carrera, modalidadSeleccionada, onCopied }) {
             className="inline-flex items-center gap-2 rounded-lg bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1ebe5d] active:scale-95"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
             </svg>
             Escribir por WhatsApp
           </a>
@@ -230,16 +234,17 @@ export default function InscripcionForm() {
   const [searchParams] = useSearchParams();
   const carreraPreseleccionada = searchParams.get('carrera') || '';
 
-  const [carreras, setCarreras]               = useState([]);
+  const [carreras, setCarreras] = useState([]);
   const [loadingCarreras, setLoadingCarreras] = useState(true);
-  const [modalidades, setModalidades]         = useState([]);
+  const [modalidades, setModalidades] = useState([]);
   const [loadingModalidades, setLoadingModalidades] = useState(false);
-  const [form, setForm]                       = useState({ ...INITIAL_FORM, id_carrera: carreraPreseleccionada });
-  const [comprobante, setComprobante]         = useState(null);
-  const [errors, setErrors]                   = useState({});
-  const [submitting, setSubmitting]           = useState(false);
-  const [submitError, setSubmitError]         = useState('');
-  const [toast, setToast]                     = useState(null);
+  const [form, setForm] = useState({ ...INITIAL_FORM, id_carrera: carreraPreseleccionada });
+  const [comprobante, setComprobante] = useState(null);
+  const [certMedico, setCertMedico] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     getCarreras({ estado: 'activa' })
@@ -277,8 +282,8 @@ export default function InscripcionForm() {
   const modalidadesCompatibles = useMemo(
     () => modalidades.filter((m) => {
       if (!edad || !form.sexo) return true; // muestra todas si no hay datos aún
-      const sexoOk  = m.sexo === 'otro' || m.sexo === form.sexo;
-      const edadOk  = edad >= m.edad_minima && edad <= m.edad_maxima;
+      const sexoOk = m.sexo === 'otro' || m.sexo === form.sexo;
+      const edadOk = edad >= m.edad_minima && edad <= m.edad_maxima;
       return sexoOk && edadOk;
     }),
     [modalidades, edad, form.sexo]
@@ -311,20 +316,28 @@ export default function InscripcionForm() {
 
   const validar = () => {
     const err = {};
-    if (!form.id_carrera)           err.id_carrera       = 'Seleccioná una carrera';
-    if (!form.id_modalidad)         err.id_modalidad     = 'Seleccioná una modalidad';
-    if (!form.apellido.trim())      err.apellido         = 'Ingresá tu apellido';
-    if (!form.nombre.trim())        err.nombre           = 'Ingresá tu nombre';
-    if (!form.dni.trim())           err.dni              = 'Ingresá tu DNI';
+    if (!form.id_carrera) err.id_carrera = 'Seleccioná una carrera';
+    if (!form.id_modalidad) err.id_modalidad = 'Seleccioná una modalidad';
+    if (!form.apellido.trim()) err.apellido = 'Ingresá tu apellido';
+    if (!form.nombre.trim()) err.nombre = 'Ingresá tu nombre';
+    if (!form.dni.trim()) err.dni = 'Ingresá tu DNI';
     else if (!/^[0-9A-Za-z.-]{5,20}$/.test(form.dni.trim()))
-                                    err.dni              = 'Formato de DNI inválido';
-    if (!form.fecha_nacimiento)     err.fecha_nacimiento = 'Ingresá tu fecha de nacimiento';
+      err.dni = 'Formato de DNI inválido';
+    if (!form.fecha_nacimiento) err.fecha_nacimiento = 'Ingresá tu fecha de nacimiento';
     else if (new Date(form.fecha_nacimiento) > new Date())
-                                    err.fecha_nacimiento = 'La fecha no puede ser futura';
-    if (!form.sexo)                 err.sexo             = 'Seleccioná una opción';
+      err.fecha_nacimiento = 'La fecha no puede ser futura';
+    if (!form.sexo) err.sexo = 'Seleccioná una opción';
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-                                    err.email            = 'Formato de email inválido';
-    if (!comprobante)               err.comprobante      = 'Debés adjuntar el comprobante de pago';
+      err.email = 'Formato de email inválido';
+    if (!comprobante) err.comprobante = 'Debés adjuntar el comprobante de pago';
+    if (carreraSeleccionada?.campo_talle && !form.talle) err.talle = 'Seleccioná un talle';
+    if (carreraSeleccionada?.campo_club && !form.club.trim()) err.club = 'Ingresá tu equipo o club';
+    if (carreraSeleccionada?.campo_tel_emergencia && !form.tel_emergencia.trim()) err.tel_emergencia = 'Ingresá un teléfono de emergencia';
+    if (carreraSeleccionada?.campo_obra_social && !form.obra_social.trim()) err.obra_social = 'Ingresá tu obra social';
+    if (carreraSeleccionada?.campo_grupo_sanguineo && !form.grupo_sanguineo) err.grupo_sanguineo = 'Seleccioná tu grupo sanguíneo';
+    if (carreraSeleccionada?.campo_examen_medico && !form.fecha_examen_medico) err.fecha_examen_medico = 'Ingresá la fecha de tu último examen';
+    if (carreraSeleccionada?.campo_link_ironman && !form.link_ironman.trim()) err.link_ironman = 'Ingresá el link de tu último Ironman';
+    if (carreraSeleccionada?.campo_cert_medico && !certMedico) err.cert_medico = 'Debés adjuntar tu certificado médico';
     setErrors(err);
     return Object.keys(err).length === 0;
   };
@@ -341,21 +354,28 @@ export default function InscripcionForm() {
     setSubmitting(true);
     try {
       const res = await crearInscripcion({
-        id_carrera:      Number(form.id_carrera),
-        id_modalidad:    Number(form.id_modalidad),
-        apellido:        form.apellido.trim(),
-        nombre:          form.nombre.trim(),
-        dni:             form.dni.trim(),
+        id_carrera: Number(form.id_carrera),
+        id_modalidad: Number(form.id_modalidad),
+        apellido: form.apellido.trim(),
+        nombre: form.nombre.trim(),
+        dni: form.dni.trim(),
         fecha_nacimiento: form.fecha_nacimiento,
-        sexo:            form.sexo,
-        email:           form.email.trim() || undefined,
-        telefono:        form.telefono.trim() || undefined,
-        ciudad:          form.ciudad.trim() || undefined,
-        observaciones:   form.observaciones.trim() || undefined
+        sexo: form.sexo,
+        email: form.email.trim() || undefined,
+        telefono: form.telefono.trim() || undefined,
+        ciudad: form.ciudad.trim() || undefined,
+        observaciones: form.observaciones.trim() || undefined,
+        talle:              form.talle            || undefined,
+        club:               form.club.trim()      || undefined,
+        tel_emergencia:     form.tel_emergencia.trim() || undefined,
+        obra_social:        form.obra_social.trim() || undefined,
+        grupo_sanguineo:    form.grupo_sanguineo  || undefined,
+        fecha_examen_medico: form.fecha_examen_medico || undefined,
+        link_ironman:       form.link_ironman.trim() || undefined,
       });
 
       const inscripcion = res.data.data;
-      await subirComprobante(inscripcion.id, comprobante);
+      await subirComprobante(inscripcion.id, comprobante, certMedico || undefined);
 
       navigate('/confirmacion', {
         state: {
@@ -422,7 +442,7 @@ export default function InscripcionForm() {
               {modalidades.map((m) => {
                 const esCompatible = !edad || !form.sexo ||
                   ((m.sexo === 'otro' || m.sexo === form.sexo) &&
-                   edad >= m.edad_minima && edad <= m.edad_maxima);
+                    edad >= m.edad_minima && edad <= m.edad_maxima);
                 return (
                   <option key={m.id} value={m.id}>
                     {m.nombre}
@@ -540,6 +560,68 @@ export default function InscripcionForm() {
         sexo={form.sexo}
         sinModalidades={!form.id_carrera}
       />
+
+      {/* Campos opcionales según configuración de la carrera */}
+      {carreraSeleccionada?.campo_talle && (
+        <div>
+          <label className="form-label">Talle de remera <span className="text-coral">*</span></label>
+          <select id="talle" className={`form-input ${errors.talle ? 'form-input-error' : ''}`}
+            value={form.talle} onChange={handleChange('talle')}>
+            <option value="">Seleccioná un talle...</option>
+            {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map(t => <option key={t} value={t}>{t}</option>)}
+          </select>
+          {errors.talle && <p className="form-error">{errors.talle}</p>}
+        </div>
+      )}
+      {carreraSeleccionada?.campo_club && (
+        <Input label="Equipo o club" id="club" required
+          placeholder="Ej: Club Atlético Santiago" value={form.club}
+          onChange={handleChange('club')} error={errors.club} />
+      )}
+      {carreraSeleccionada?.campo_tel_emergencia && (
+        <Input label="Teléfono de emergencia" id="tel_emergencia" type="tel" required
+          placeholder="Ej: 3856 123456" value={form.tel_emergencia}
+          onChange={handleChange('tel_emergencia')} error={errors.tel_emergencia} />
+      )}
+      {carreraSeleccionada?.campo_obra_social && (
+        <Input label="Obra social" id="obra_social" required
+          placeholder="Ej: OSDE, Swiss Medical, PAMI" value={form.obra_social}
+          onChange={handleChange('obra_social')} error={errors.obra_social} />
+      )}
+      {carreraSeleccionada?.campo_grupo_sanguineo && (
+        <div>
+          <label className="form-label">Grupo sanguíneo <span className="text-coral">*</span></label>
+          <select id="grupo_sanguineo" className={`form-input ${errors.grupo_sanguineo ? 'form-input-error' : ''}`}
+            value={form.grupo_sanguineo} onChange={handleChange('grupo_sanguineo')}>
+            <option value="">Seleccioná...</option>
+            {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map(g => <option key={g} value={g}>{g}</option>)}
+          </select>
+          {errors.grupo_sanguineo && <p className="form-error">{errors.grupo_sanguineo}</p>}
+        </div>
+      )}
+      {carreraSeleccionada?.campo_examen_medico && (
+        <Input label="Fecha último examen médico" id="fecha_examen_medico" type="date" required
+          max={new Date().toISOString().split('T')[0]}
+          value={form.fecha_examen_medico} onChange={handleChange('fecha_examen_medico')}
+          error={errors.fecha_examen_medico} />
+      )}
+      {carreraSeleccionada?.campo_link_ironman && (
+        <Input label="Link último Ironman corrido" id="link_ironman" type="url" required
+          placeholder="https://www.ironman.com/resultados/..." value={form.link_ironman}
+          onChange={handleChange('link_ironman')} error={errors.link_ironman} />
+      )}
+      {carreraSeleccionada?.campo_cert_medico && (
+        <div>
+          <label className="form-label">
+            Certificado médico <span className="text-coral">*</span>
+          </label>
+          <ComprobanteUpload
+            file={certMedico}
+            onChange={setCertMedico}
+            error={errors.cert_medico}
+          />
+        </div>
+      )}
 
       <div>
         <label className="form-label" htmlFor="observaciones">Observaciones</label>
