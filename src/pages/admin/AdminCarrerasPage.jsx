@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { getCarreras, createCarrera, updateCarrera, deleteCarrera } from '../../api/carreras.api';
-import { getCategorias, reemplazarCategoriasCarrera } from '../../api/categorias.api';
+import { getCategorias, getCategoriasByCarrera, reemplazarCategoriasCarrera } from '../../api/categorias.api';
 import axiosClient from '../../api/axiosClient';
 import { Link } from 'react-router-dom';
 import Button from '../../components/common/Button';
@@ -42,7 +42,7 @@ function CarreraForm({ initial, onSave, onCancel, idCarrera }) {
   const [catSeleccionadas, setCatSeleccionadas] = useState(initial?.categorias_ids || []);
 
   useEffect(() => {
-    getCategorias().then((r) => setTodasCategorias(r.data.data)).catch(() => { });
+    getCategorias().then((r) => setTodasCategorias(r.data.data)).catch(() => {});
   }, []);
 
   const toggleCategoria = (id) => {
@@ -296,9 +296,9 @@ export default function AdminCarrerasPage() {
 
   const [categoriasIniciales, setCategoriasIniciales] = useState([]);
 
-  const cargarCategoriasCarrera = async (idCarrera) => {
+ const cargarCategoriasCarrera = async (idCarrera) => {
     try {
-      const r = await import('../../api/categorias.api').then(m => m.getCategoriasByCarrera(idCarrera));
+      const r = await getCategoriasByCarrera(idCarrera);
       setCategoriasIniciales(r.data.data.map(c => c.id));
     } catch { setCategoriasIniciales([]); }
   };
