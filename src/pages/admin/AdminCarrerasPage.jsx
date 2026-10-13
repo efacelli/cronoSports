@@ -84,6 +84,7 @@ useEffect(() => {
         categorias_ids: catSeleccionadas
       });
       console.log('PAYLOAD:', payload); //
+      await onSave(payload);
     } catch (err) {
       setSaveError(err.response?.data?.message || 'Error al guardar la carrera.');
     } finally {
