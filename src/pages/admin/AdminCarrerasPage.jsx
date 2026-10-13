@@ -33,7 +33,7 @@ const FORM_VACIO = {
   campo_examen_medico: false, campo_cert_medico: false, campo_link_ironman: false
 };
 
-function CarreraForm({ initial, onSave, onCancel, idCarrera }) {
+function CarreraForm({ initial, onSave, onCancel, idCarrera, categoriasPreseleccionadas }) {
   const [form, setForm] = useState(initial || FORM_VACIO);
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
@@ -41,8 +41,14 @@ function CarreraForm({ initial, onSave, onCancel, idCarrera }) {
   const [todasCategorias, setTodasCategorias] = useState([]);
   const [catSeleccionadas, setCatSeleccionadas] = useState(initial?.categorias_ids || []);
 
+useEffect(() => {
+  if (catSeleccionadas.length === 0 && categoriasPreseleccionadas?.length > 0) {
+    setCatSeleccionadas(categoriasPreseleccionadas);
+  }
+}, [categoriasPreseleccionadas]);
+
   useEffect(() => {
-    getCategorias().then((r) => setTodasCategorias(r.data.data)).catch(() => {});
+    getCategorias().then((r) => setTodasCategorias(r.data.data)).catch(() => { });
   }, []);
 
   const toggleCategoria = (id) => {
@@ -77,6 +83,7 @@ function CarreraForm({ initial, onSave, onCancel, idCarrera }) {
         cupo_maximo: form.cupo_maximo !== '' ? Number(form.cupo_maximo) : 0,
         categorias_ids: catSeleccionadas
       });
+      console.log('PAYLOAD:', payload); //
     } catch (err) {
       setSaveError(err.response?.data?.message || 'Error al guardar la carrera.');
     } finally {
@@ -128,34 +135,34 @@ function CarreraForm({ initial, onSave, onCancel, idCarrera }) {
             onChange={handleChange('descripcion')}
           />
         </div>
-      <fieldset className="space-y-3 rounded-lg border border-navy/10 bg-navy/5 p-4">
-        <legend className="text-xs font-semibold uppercase tracking-wide text-navy px-1">
-          Campos opcionales del formulario de inscripción
-        </legend>
-        <p className="text-xs text-slate">Activá los campos que quieras solicitar a los participantes de esta carrera.</p>
-        <div className="grid gap-2 sm:grid-cols-2">
-          {[
-            ['campo_talle',           'Talle de remera'],
-            ['campo_club',            'Equipo o club'],
-            ['campo_tel_emergencia',  'Teléfono de emergencia'],
-            ['campo_obra_social',     'Obra social'],
-            ['campo_grupo_sanguineo', 'Grupo sanguíneo'],
-            ['campo_examen_medico',   'Fecha último examen médico'],
-            ['campo_cert_medico',     'Certificado médico (archivo)'],
-            ['campo_link_ironman',    'Link último Ironman']
-          ].map(([key, label]) => (
-            <label key={key} className="flex items-center gap-2 text-sm cursor-pointer">
-              <input
-                type="checkbox"
-                className="accent-coral"
-                checked={!!form[key]}
-                onChange={(e) => setForm((p) => ({ ...p, [key]: e.target.checked }))}
-              />
-              {label}
-            </label>
-          ))}
-        </div>
-      </fieldset>
+        <fieldset className="space-y-3 rounded-lg border border-navy/10 bg-navy/5 p-4">
+          <legend className="text-xs font-semibold uppercase tracking-wide text-navy px-1">
+            Campos opcionales del formulario de inscripción
+          </legend>
+          <p className="text-xs text-slate">Activá los campos que quieras solicitar a los participantes de esta carrera.</p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {[
+              ['campo_talle', 'Talle de remera'],
+              ['campo_club', 'Equipo o club'],
+              ['campo_tel_emergencia', 'Teléfono de emergencia'],
+              ['campo_obra_social', 'Obra social'],
+              ['campo_grupo_sanguineo', 'Grupo sanguíneo'],
+              ['campo_examen_medico', 'Fecha último examen médico'],
+              ['campo_cert_medico', 'Certificado médico (archivo)'],
+              ['campo_link_ironman', 'Link último Ironman']
+            ].map(([key, label]) => (
+              <label key={key} className="flex items-center gap-2 text-sm cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="accent-coral"
+                  checked={!!form[key]}
+                  onChange={(e) => setForm((p) => ({ ...p, [key]: e.target.checked }))}
+                />
+                {label}
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
       </fieldset>
 
@@ -268,7 +275,11 @@ export default function AdminCarrerasPage() {
   useEffect(() => { fetchCarreras(); }, [fetchCarreras]);
 
   const handleCrear = async (data) => { await createCarrera(data); setModalCrear(false); fetchCarreras(); };
-  const handleActualizar = async (data) => { await updateCarrera(editando.id, data); setEditando(null); fetchCarreras(); };
+  const handleActualizar = async (data) => {
+    await updateCarrera(editando.id, data);
+    setEditando(null);
+    fetchCarreras();
+  };
 
   const handleEliminar = async () => {
     setDeletingId(eliminando.id);
@@ -296,7 +307,7 @@ export default function AdminCarrerasPage() {
 
   const [categoriasIniciales, setCategoriasIniciales] = useState([]);
 
- const cargarCategoriasCarrera = async (idCarrera) => {
+  const cargarCategoriasCarrera = async (idCarrera) => {
     try {
       const r = await getCategoriasByCarrera(idCarrera);
       setCategoriasIniciales(r.data.data.map(c => c.id));
@@ -424,7 +435,12 @@ export default function AdminCarrerasPage() {
 
       <Modal open={Boolean(editando)} onClose={() => setEditando(null)} title="Editar carrera" maxWidth="max-w-2xl">
         {editando && (
-          <CarreraForm initial={formInitial(editando)} onSave={handleActualizar} onCancel={() => setEditando(null)} />
+          <CarreraForm
+            initial={formInitial(editando)}
+            categoriasPreseleccionadas={categoriasIniciales}
+            onSave={handleActualizar}
+            onCancel={() => setEditando(null)}
+          />
         )}
       </Modal>
 
