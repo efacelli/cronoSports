@@ -1,5 +1,5 @@
+import { useEffect } from 'react';
 import InscripcionForm from '../components/inscripcion/InscripcionForm';
-
 export default function InscripcionPage() {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
