@@ -41,11 +41,11 @@ function CarreraForm({ initial, onSave, onCancel, idCarrera, categoriasPreselecc
   const [todasCategorias, setTodasCategorias] = useState([]);
   const [catSeleccionadas, setCatSeleccionadas] = useState(initial?.categorias_ids || []);
 
-useEffect(() => {
-  if (catSeleccionadas.length === 0 && categoriasPreseleccionadas?.length > 0) {
-    setCatSeleccionadas(categoriasPreseleccionadas);
-  }
-}, [categoriasPreseleccionadas]);
+  useEffect(() => {
+    if (catSeleccionadas.length === 0 && categoriasPreseleccionadas?.length > 0) {
+      setCatSeleccionadas(categoriasPreseleccionadas);
+    }
+  }, [categoriasPreseleccionadas]);
 
   useEffect(() => {
     getCategorias().then((r) => setTodasCategorias(r.data.data)).catch(() => { });
@@ -242,7 +242,7 @@ useEffect(() => {
 
       <div className="flex justify-end gap-3 border-t border-black/5 pt-4">
         <Button type="button" variant="ghost" onClick={onCancel}>Cancelar</Button>
-        <Button type="submit" loading={saving}>Guardar carrera</Button>
+        <Button type="submit" loading={saving} onClick={() => console.log('FORM:', form)}>Guardar carrera</Button>
       </div>
     </form>
   );
