@@ -330,14 +330,7 @@ export default function InscripcionForm() {
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       err.email = 'Formato de email inválido';
     if (!comprobante) err.comprobante = 'Debés adjuntar el comprobante de pago';
-    if (carreraSeleccionada?.campo_talle && !form.talle) err.talle = 'Seleccioná un talle';
-    if (carreraSeleccionada?.campo_club && !form.club.trim()) err.club = 'Ingresá tu equipo o club';
-    if (carreraSeleccionada?.campo_tel_emergencia && !form.tel_emergencia.trim()) err.tel_emergencia = 'Ingresá un teléfono de emergencia';
-    if (carreraSeleccionada?.campo_obra_social && !form.obra_social.trim()) err.obra_social = 'Ingresá tu obra social';
-    if (carreraSeleccionada?.campo_grupo_sanguineo && !form.grupo_sanguineo) err.grupo_sanguineo = 'Seleccioná tu grupo sanguíneo';
-    if (carreraSeleccionada?.campo_examen_medico && !form.fecha_examen_medico) err.fecha_examen_medico = 'Ingresá la fecha de tu último examen';
-    if (carreraSeleccionada?.campo_link_ironman && !form.link_ironman.trim()) err.link_ironman = 'Ingresá el link de tu último Ironman';
-    if (carreraSeleccionada?.campo_cert_medico && !certMedico) err.cert_medico = 'Debés adjuntar tu certificado médico';
+
     setErrors(err);
     return Object.keys(err).length === 0;
   };
@@ -365,13 +358,13 @@ export default function InscripcionForm() {
         telefono: form.telefono.trim() || undefined,
         ciudad: form.ciudad.trim() || undefined,
         observaciones: form.observaciones.trim() || undefined,
-        talle:              form.talle            || undefined,
-        club:               form.club.trim()      || undefined,
-        tel_emergencia:     form.tel_emergencia.trim() || undefined,
-        obra_social:        form.obra_social.trim() || undefined,
-        grupo_sanguineo:    form.grupo_sanguineo  || undefined,
+        talle: form.talle || undefined,
+        club: form.club.trim() || undefined,
+        tel_emergencia: form.tel_emergencia.trim() || undefined,
+        obra_social: form.obra_social.trim() || undefined,
+        grupo_sanguineo: form.grupo_sanguineo || undefined,
         fecha_examen_medico: form.fecha_examen_medico || undefined,
-        link_ironman:       form.link_ironman.trim() || undefined,
+        link_ironman: form.link_ironman.trim() || undefined,
       });
 
       const inscripcion = res.data.data;
@@ -607,19 +600,21 @@ export default function InscripcionForm() {
       )}
       {carreraSeleccionada?.campo_link_ironman && (
         <Input label="Link último Ironman corrido" id="link_ironman" type="url" required
-          placeholder="https://www.ironman.com/resultados/..." value={form.link_ironman}
+          placeholder="Último Ironman corrido después del 01/01/2022" value={form.link_ironman}
           onChange={handleChange('link_ironman')} error={errors.link_ironman} />
       )}
       {carreraSeleccionada?.campo_cert_medico && (
         <div>
-          <label className="form-label">
-            Certificado médico <span className="text-coral">*</span>
-          </label>
-          <ComprobanteUpload
-            file={certMedico}
-            onChange={setCertMedico}
-            error={errors.cert_medico}
+          <label className="form-label">Certificado médico</label>
+          <input
+            type="file"
+            accept=".jpg,.jpeg,.png,.webp,.pdf"
+            className="form-input py-2 text-sm"
+            onChange={(e) => setCertMedico(e.target.files?.[0] || null)}
           />
+          {certMedico && (
+            <p className="mt-1 text-xs text-success">✓ {certMedico.name}</p>
+          )}
         </div>
       )}
 
