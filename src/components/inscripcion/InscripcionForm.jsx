@@ -21,7 +21,7 @@ const SEXO_OPTIONS = [
 const INITIAL_FORM = {
   id_carrera: '', id_modalidad: '', apellido: '', nombre: '', dni: '',
   fecha_nacimiento: '', sexo: '', email: '', telefono: '', ciudad: '',
-  observaciones: '',
+  observaciones: '', aceptar_condiciones: false,
   // Campos opcionales por carrera
   talle: '', club: '', tel_emergencia: '', obra_social: '',
   grupo_sanguineo: '', fecha_examen_medico: '', link_ironman: ''
@@ -339,6 +339,7 @@ export default function InscripcionForm() {
     e.preventDefault();
     setSubmitError('');
     if (!validar()) {
+      if (!form.aceptar_condiciones) err.aceptar_condiciones = 'Debés aceptar las condiciones para continuar';
       setToast({ message: 'Revisá los campos marcados en rojo antes de continuar.', type: 'info' });
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
@@ -641,6 +642,26 @@ export default function InscripcionForm() {
         <span className="font-semibold text-warning">Pendiente</span> hasta que
         un administrador revise tu comprobante de pago.
       </p>
+
+      <div>
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            className="mt-0.5 h-4 w-4 accent-coral shrink-0"
+            checked={form.aceptar_condiciones}
+            onChange={(e) => {
+              setForm((prev) => ({ ...prev, aceptar_condiciones: e.target.checked }));
+              setErrors((prev) => ({ ...prev, aceptar_condiciones: undefined }));
+            }}
+          />
+          <span className="text-sm text-slate uppercase">
+            Declaro aceptar y estar de acuerdo con las condiciones establecidas por los organizadores
+          </span>
+        </label>
+        {errors.aceptar_condiciones && (
+          <p className="form-error mt-1">{errors.aceptar_condiciones}</p>
+        )}
+      </div>
 
       <Button type="submit" loading={submitting} className="w-full text-base">
         Confirmar inscripción
