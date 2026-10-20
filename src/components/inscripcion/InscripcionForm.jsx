@@ -228,6 +228,19 @@ function RecorridoCarrera({ carrera }) {
   );
 }
 
+const TERMINOS_Y_CONDICIONES = `La Actividad para la que te registrarte el evento deportivo 602K Atletas Extremos, o 301k Atletas Extremos y/o 602 o 301 equipos. Es un evento de extremada exigencia desde el Punto de Vista Físico y conlleva: riesgos de molestias, Lesiones e INCLUSO la muerte. Deberá Estar Seguro de que su estado Físico le permite Participar en el Evento mencionado sin poner en riesgo su salud ni su vida. No REALIZAMOS Pruebas de salud ni de Estado Físico a las Personas las Registradas. Si bien tomamos Medidas para que el Evento se desarrolle de la forma más segura posible, no Podemos ELIMINAR todos los Riesgos y peligros para los Participantes y los espectadores y por lo Tanto, Usted participa o presencia el Evento bajo su Responsabilidad Propia.
+
+1. ACEPTACION DE RIESGOS. DESDE LA ACEPTACION DE SU REGISTRO Y SU PARTICIPACIÓN EN EL EVENTO, USTED ASUME TODOS LOS RIESGOS Y RESPONSABILIDADES DE CUALQUIER TIPO COMO MOLESTIAS, ENFERMEDAD, LESION O ACCIDENTE QUE SUFRA O PUEDA SUFRIR DURANTE SU PREPARACIÓN PARA EL EVENTO, DURANTE EL PROPIO EVENTO, MIENTRAS ESTE EN LA UBICACIÓN DEL EVENTO Y EN LOS TRASLADOS AL EVENTO O DESDE ESTE. RECONOCE QUE PARTICIPAR EN EL EVENTO PUEDE SER PELIGROSO Y PARTICIPA EN EL BAJO SU ENTERA RESPONSABILIDAD Y MANIFIESTA ESTAR APTO PARA ELLO DESDE EL PUNTO DE VISTA MÉDICO Y SE ENCUENTRA DEBIDAMENTE ENTRENADO. LE RECOMENDAMOS QUE CONSULTE A SU MÉDICO ANTES DE PARTICIPAR EN EL EVENTO. ES RESPONSABILIDAD SUYA COMPROBAR Y VERIFICAR QUE SE ENCUENTRA EN TODO MOMENTO EN CONDICIONES MÉDICAS Y FISICAS ADECUADAS PARA PARTICIPAR EN LAS ACTIVIDADES RELACIONADAS CON EL EVENTO. RECONOCE Y ACEPTA QUE EL EVENTO SE PODRA REALIZAR EN CARRETERAS E INSTALACIONES PÚBLICAS, QUE ESTARAN ABIERTAS AL PÚBLICO DURANTE EL EVENTO Y EN LAS QUE PUEDEN PRODUCIRSE SITUACIONES DE PELIGRO. ASI MISMO, RECONOCE Y ACEPTA QUE LA PARTICIPACIÓN EN EL EVENTO PUEDE CON LLEVAR DETERMINADOS RIESGOS Y PELIGROS INHERENTES QUE NO PUEDEN ELIMINARSE POR COMPLETO, DESDE MOLESTIAS MENORES HASTA LESIONES MUY GRAVES, INCLUIDA LA DISCAPACIDAD PERMANENTE Y LA MUERTE. USTED RECONOCE QUE ES CONSCIENTE DE TODOS LOS RIESGOS ASOCIADOS CON LA PARTICIPACIÓN EN EL EVENTO Y LOS ASUME, INCLUIDOS, ENTRE OTROS, LOS RIESGOS DE LESIONES PERMANENTES O MUERTE COMO CONCECUENCIA DE CAIDAS, OBSTACULOS, CONTACTOS CON OTROS PARTICIPANTES, ACTOS U OMISIONES DE OTROS PARTICIPANTES, FENOMENO METEREOLOGICO, EL TRÁFICO Y EL ESTADO DE LAS CARRETERAS. Usted se compromete a Cumplir y obedecer TODAS las normas y advertencias señalizadas, y Seguir TODAS LAS INSTRUCCIONES Que le dé el organizador del evento y a RESPETAR TODAS LAS Decisiones de Jueces del Evento Sobre su incapacidad para participar o continuar en el evento o asistir a en el, en Condiciones de Seguridad inadecuadas. Usted reconoce y Acepta mantener un Comportamiento apropiado Y que cumpla TODAS LAS Leyes aplicables MIENTRAS Participe en el Evento o Asista. ESTO INCLUYE, en general el respeto a las Personas, equipos, instalaciones o bienes. Usted Acepta Que los Jueces del Evento podrán expulsarle, sin tener derecho a reembolso.
+
+2. Usted Manifiesta y Garantiza Que se encuentra en buen estado Físico, y es Capaz de Participar en Condiciones de Seguridad en el Evento y no tiene ningún Problema Médico Que agrave los Riesgos de su Participación en el Evento. Usted Acepta Recibir Tratamiento Médico y Ser trasladado para recibirlo en Caso de Que Sufra Una lesión y reconoce Que Este Acuerdo y Exención de Responsabilidad Cubre también responsabilidad derivada o Relacionada Con El Tratamiento Médico y el transporte facilitados en Caso de Emergencia y / o Lesiones. Usted reconoce Que es Posible Que no Haya Asistencia Médica disponible en forma inmediata y, en Caso de Haberla, Usted ASUME La Responsabilidad por Todos Los Gastos Médicos Que se produzcan Como consecuencia de su Participación en el Evento. Usted reconoce y Acepta Que es responsable de ocuparse de Sus Objetos Personales Durante el Evento Y Que el organizador del evento NO aceptarán Responsabilidad Alguna por daños y/o perdidas de objetos personales que se pierdan o resulte dañado o robado en el Evento. Usted reconoce y Acepta Que El organizador del Evento se reserva el Derecho a cancelar el Evento en Caso de fenómenos meteorológicos (Incluidos, Entre Otros, Calor, tornados, terremotos, incendios, Tormentas, rayos e Inundaciones), accidentes, u otros que afecten a la Seguridad de los Participantes y / o espectadores del evento. En Caso de cancelación por Los motivos citados o por Otro motivo, no se le reembolsará el importe abonado.
+
+4. DESCARGO Y EXENCIÓN DE RESPONSABILIDAD. POR EL PRESENTE DOCUMENTO, Y MEDIANTE SU FIRMA, EXIME Y DESCARGA DE RESPONSABILIDAD Y SE COMPROMETE A NO DEMANDAR Y A EXONERAR PARA SIEMPRE A LOS ORGANIZADORES Y AL RESTO DE PERSONAS ASOCIADAS CON EL EVENTO, POR TODAS SUS RESPONSABILIDADES, DEMANDAS, ACCIONES JUDICIALES O SOLICITUDES DE INDEMNIZACION POR DANOS QUE PUDIERA PRESENTAR CONTRA ELLOS O EXIGIRLES COMO CONSECUENCIA EN RELACIÓN CON SU REGISTRO Y / O PARTICIPACIÓN EN EL EVENTO, INCLUIDAS ENTRE OTRAS, LAS RESPONSABILIDADES, DEMANDAS, ACCIONES O SOLICITUDES DE INDEMNIZACION POR DANOS CAUSADAS POR NEGLIGENCIAS DE LAS PARTES CITADAS (INCLUIDO CUALQUIER INTENTO DE RESCATE NEGLIGENTE), ACCIONES U OMISIONES DE ESAS PARTES O CUALQUIER OTRA CAUSA. LOS ORGANIZADORES DEL EVENTO NO SERÁ RESPONSABLE ANTE USTED DE LOS DANOS DIRECTOS O INDIRECTOS, ACCESORIOS, EMERGENTES O PUNITIVOS, INCLUIDOS, A MODO DE EJEMPLO, DANOS POR LUCRO CESANTE, PERDIDA DE DATOS U OTRAS PERDIDAS INTANGIBLES (INCLUSO SI SE HA INFORMADO A LOS ORGANIZADORES DE LA POSIBILIDAD DE QUE SE PRODUSCAN DICHOS DANOS).
+
+7. UTILIZACIÓN DE LA IMAGEN. Usted otorga al organizador del Evento Permiso irrevocable para grabar su voz y fotografiarle en Relación con el Evento. Asimismo, autoriza al organizador del Evento a utilizar SUS FOTOGRAFÍAS, Voz e Imagen en conjunto con el Evento, en DIFERENTES formatos, incluidas Versiones editadas, A Través de medios, Incluidos, Entre Otros, la retransmisión de audio y / o video por Internet, radiodifusión, cable, transmisiones POR SATELITE y Medios desconocidos en Este Momento, en Todo El Mundo PARA CUALQUIER Finalidad legítima.
+
+8. ACEPTACIÓN. AL ACEPTAR EL PRESENTE ACUERDO Y EXENCIÓN DE RESPONSABILIDAD, USTED AFIRMA QUE LO HA LEIDO Y COMPRENDE TODOS SUS Términos y Condiciones. RECONOCE QUE Entiende y RENUNCIA A DERECHOS SUSTANCIALES, INCLUIDO EL DERECHO A DEMANDAR. RECONOCE QUE USTED PRESTA SU CONSENTIMIENTO A ESTE ACUERDO.`;
+
+
 // ─── Formulario principal ────────────────────────────────────────────────────
 export default function InscripcionForm() {
   const navigate = useNavigate();
@@ -245,6 +258,8 @@ export default function InscripcionForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [toast, setToast] = useState(null);
+  const [showTerminos, setShowTerminos] = useState(false);
+  const [terminosLeidos, setTerminosLeidos] = useState(false);
 
   useEffect(() => {
     getCarreras({ estado: 'activa' })
@@ -643,31 +658,92 @@ export default function InscripcionForm() {
         un administrador revise tu comprobante de pago.
       </p>
 
+      {/* Modal de términos y condiciones */}
+      {showTerminos && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/60 p-4"
+          onClick={() => setShowTerminos(false)}>
+          <div className="bg-white rounded-xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl"
+            onClick={(e) => e.stopPropagation()}>
+            <div className="px-6 py-4 border-b border-black/5 flex items-center justify-between">
+              <h3 className="font-display text-navy text-lg">Términos y condiciones</h3>
+              <button onClick={() => setShowTerminos(false)}
+                className="text-slate hover:text-navy text-xl font-bold">✕</button>
+            </div>
+            <div
+              className="overflow-y-auto px-6 py-4 text-sm text-slate leading-relaxed flex-1"
+              onScroll={(e) => {
+                const el = e.target;
+                if (el.scrollHeight - el.scrollTop <= el.clientHeight + 10) {
+                  setTerminosLeidos(true);
+                }
+              }}
+            >
+              <p className="whitespace-pre-wrap">{TERMINOS_Y_CONDICIONES}</p>
+            </div>
+            <div className="px-6 py-4 border-t border-black/5">
+              {!terminosLeidos && (
+                <p className="text-xs text-warning mb-3 text-center">↓ Scrolleá hasta el final para poder aceptar</p>
+              )}
+              <button
+                type="button"
+                disabled={!terminosLeidos}
+                onClick={() => {
+                  setForm((prev) => ({ ...prev, aceptar_condiciones: true }));
+                  setErrors((prev) => ({ ...prev, aceptar_condiciones: undefined }));
+                  setShowTerminos(false);
+                }}
+                className="w-full rounded-lg bg-coral px-6 py-3 font-semibold text-white transition hover:bg-danger disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                Acepto los términos y condiciones
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div>
-        <label className="flex items-start gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            className="mt-0.5 h-4 w-4 accent-coral shrink-0"
-            checked={form.aceptar_condiciones}
-            onChange={(e) => {
-              setForm((prev) => ({ ...prev, aceptar_condiciones: e.target.checked }));
-              setErrors((prev) => ({ ...prev, aceptar_condiciones: undefined }));
-            }}
-          />
-          <span className="text-sm text-slate uppercase">
+        <div className="flex items-center gap-3 rounded-lg border border-black/10 bg-sand/50 px-4 py-3">
+          {form.aceptar_condiciones ? (
+            <svg className="h-5 w-5 text-success shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          ) : (
+            <svg className="h-5 w-5 text-slate shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="9" />
+            </svg>
+          )}
+          <span className="text-sm text-slate uppercase flex-1">
             Declaro aceptar y estar de acuerdo con las condiciones establecidas por los organizadores
           </span>
-        </label>
+          {!form.aceptar_condiciones && (
+            <button
+              type="button"
+              onClick={() => { setShowTerminos(true); setTerminosLeidos(false); }}
+              className="shrink-0 text-xs font-semibold text-coral hover:underline"
+            >
+              Ver y aceptar
+            </button>
+          )}
+          {form.aceptar_condiciones && (
+            <button
+              type="button"
+              onClick={() => { setShowTerminos(true); setTerminosLeidos(false); }}
+              className="shrink-0 text-xs text-slate hover:underline"
+            >
+              Ver
+            </button>
+          )}
+        </div>
         {errors.aceptar_condiciones && (
           <p className="form-error mt-1">{errors.aceptar_condiciones}</p>
         )}
       </div>
-
       <Button type="submit" loading={submitting} className="w-full text-base">
         Confirmar inscripción
       </Button>
     </form>
   );
+
 
   return (
     <>
