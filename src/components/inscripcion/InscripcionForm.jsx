@@ -346,6 +346,16 @@ export default function InscripcionForm() {
       err.email = 'Formato de email inválido';
     if (!comprobante) err.comprobante = 'Debés adjuntar el comprobante de pago';
 
+    if (!form.aceptar_condiciones) err.aceptar_condiciones = 'Debés aceptar las condiciones para continuar';
+
+    if (carreraSeleccionada?.campo_link_ironman) {
+      const es602 = form.id_modalidad &&
+        modalidades.find(m => String(m.id) === String(form.id_modalidad))?.nombre?.includes('602');
+      if (es602 && !form.link_ironman.trim()) {
+        err.link_ironman = 'El link del último Ironman es obligatorio para la modalidad 602';
+      }
+    }
+
     setErrors(err);
     return Object.keys(err).length === 0;
   };
@@ -354,7 +364,6 @@ export default function InscripcionForm() {
     e.preventDefault();
     setSubmitError('');
     if (!validar()) {
-      if (!form.aceptar_condiciones) err.aceptar_condiciones = 'Debés aceptar las condiciones para continuar';
       setToast({ message: 'Revisá los campos marcados en rojo antes de continuar.', type: 'info' });
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
@@ -465,6 +474,15 @@ export default function InscripcionForm() {
           {errors.id_modalidad && <p className="form-error">{errors.id_modalidad}</p>}
         </div>
       )}
+
+      {/* Fecha especial para Atletas Extremos */}
+      {carreraSeleccionada?.nombre === 'Atletas Extremos' && (
+        <div className="rounded-lg border border-coral/30 bg-coral/5 px-4 py-3 text-sm text-navy">
+          <p className="font-semibold mb-1">📅 Fechas del evento:</p>
+          <p>30 de abril, 1 y 2 de mayo de 2027</p>
+        </div>
+      )}
+
 
       {/* Info de pago dinámica — debajo de modalidad */}
       {carreraSeleccionada && (
@@ -614,11 +632,19 @@ export default function InscripcionForm() {
           value={form.fecha_examen_medico} onChange={handleChange('fecha_examen_medico')}
           error={errors.fecha_examen_medico} />
       )}
-      {carreraSeleccionada?.campo_link_ironman && (
-        <Input label="Link último Ironman corrido" id="link_ironman" type="url" required
-          placeholder="Último Ironman corrido después del 01/01/2022" value={form.link_ironman}
-          onChange={handleChange('link_ironman')} error={errors.link_ironman} />
-      )}
+      {carreraSeleccionada?.campo_link_ironman &&
+        modalidades.find(m => String(m.id) === String(form.id_modalidad))?.nombre?.includes('602') && (
+          <Input
+            label="Link último Ironman corrido"
+            id="link_ironman"
+            type="url"
+            required
+            placeholder="Último Ironman corrido después del 01/01/2022"
+            value={form.link_ironman}
+            onChange={handleChange('link_ironman')}
+            error={errors.link_ironman}
+          />
+        )}
       {carreraSeleccionada?.campo_cert_medico && (
         <div>
           <label className="form-label">Certificado médico</label>
