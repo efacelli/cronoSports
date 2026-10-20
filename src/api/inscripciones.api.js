@@ -39,3 +39,13 @@ export const verComprobante = async (id) => {
   // libera memoria luego de un momento
   setTimeout(() => window.URL.revokeObjectURL(url), 30000);
 };
+
+export const verCertMedico = async (id) => {
+  const response = await axiosClient.get(`/inscripciones/${id}/cert-medico`, {
+    responseType: 'blob'
+  });
+  const blob = new Blob([response.data], { type: response.headers['content-type'] });
+  const url = window.URL.createObjectURL(blob);
+  window.open(url, '_blank');
+  setTimeout(() => window.URL.revokeObjectURL(url), 30000);
+};

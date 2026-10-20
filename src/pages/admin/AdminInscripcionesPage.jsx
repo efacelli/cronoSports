@@ -14,33 +14,34 @@ import Spinner from '../../components/common/Spinner';
 import Select from '../../components/common/Select';
 import Toast from '../../components/common/Toast';
 import { formatearFecha, formatearFechaHora, TIPO_CARRERA_LABEL } from '../../utils/formatters';
+import { getInscripciones, verComprobante, verCertMedico } from '../../api/inscripciones.api';
 
 export default function AdminInscripcionesPage() {
   const [searchParams] = useSearchParams();
 
   const [inscripciones, setInscripciones] = useState([]);
-  const [carreras, setCarreras]           = useState([]);
-  const [loading, setLoading]             = useState(true);
-  const [error, setError]                 = useState('');
-  const [exporting, setExporting]         = useState(false);
+  const [carreras, setCarreras] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [exporting, setExporting] = useState(false);
 
   const [filtroCarrera, setFiltroCarrera] = useState(searchParams.get('id_carrera') || '');
-  const [filtroEstado,  setFiltroEstado]  = useState(searchParams.get('estado_pago') || '');
-  const [filtroDni,     setFiltroDni]     = useState('');
+  const [filtroEstado, setFiltroEstado] = useState(searchParams.get('estado_pago') || '');
+  const [filtroDni, setFiltroDni] = useState('');
 
-  const [detalle,        setDetalle]       = useState(null);
-  const [accionLoading,  setAccionLoading] = useState(false);
-  const [accionError,    setAccionError]   = useState('');
-  const [notifLoading,   setNotifLoading]  = useState(false);
+  const [detalle, setDetalle] = useState(null);
+  const [accionLoading, setAccionLoading] = useState(false);
+  const [accionError, setAccionError] = useState('');
+  const [notifLoading, setNotifLoading] = useState(false);
   const [comprobanteLoading, setComprobanteLoading] = useState(false);
-  const [toast,          setToast]         = useState(null);
+  const [toast, setToast] = useState(null);
 
   const fetchInscripciones = useCallback(() => {
     setLoading(true); setError('');
     const params = {};
-    if (filtroCarrera)    params.id_carrera  = filtroCarrera;
-    if (filtroEstado)     params.estado_pago = filtroEstado;
-    if (filtroDni.trim()) params.dni         = filtroDni.trim();
+    if (filtroCarrera) params.id_carrera = filtroCarrera;
+    if (filtroEstado) params.estado_pago = filtroEstado;
+    if (filtroDni.trim()) params.dni = filtroDni.trim();
     getInscripciones(params)
       .then((res) => setInscripciones(res.data.data))
       .catch(() => setError('No se pudieron cargar las inscripciones.'))
@@ -48,7 +49,7 @@ export default function AdminInscripcionesPage() {
   }, [filtroCarrera, filtroEstado, filtroDni]);
 
   useEffect(() => {
-    getCarreras().then((res) => setCarreras(res.data.data)).catch(() => {});
+    getCarreras().then((res) => setCarreras(res.data.data)).catch(() => { });
   }, []);
 
   useEffect(() => { fetchInscripciones(); }, [fetchInscripciones]);
@@ -59,9 +60,9 @@ export default function AdminInscripcionesPage() {
   const handleAccion = async (accion, id) => {
     setAccionLoading(true); setAccionError('');
     try {
-      if (accion === 'aprobar')  await aprobarPago(id);
+      if (accion === 'aprobar') await aprobarPago(id);
       if (accion === 'rechazar') await rechazarPago(id);
-      if (accion === 'reabrir')  await reabrirPago(id);
+      if (accion === 'reabrir') await reabrirPago(id);
       const nuevoEstado = accion === 'aprobar' ? 'Aprobado' : accion === 'rechazar' ? 'Rechazado' : 'Pendiente';
       setInscripciones((prev) => prev.map((i) => i.id === id ? { ...i, estado_pago: nuevoEstado } : i));
       setDetalle((prev) => prev?.id === id ? { ...prev, estado_pago: nuevoEstado } : prev);
@@ -148,7 +149,7 @@ export default function AdminInscripcionesPage() {
             onChange={(e) => setFiltroEstado(e.target.value)}
             options={[
               { value: 'Pendiente', label: 'Pendiente' },
-              { value: 'Aprobado',  label: 'Aprobado'  },
+              { value: 'Aprobado', label: 'Aprobado' },
               { value: 'Rechazado', label: 'Rechazado' }
             ]} placeholder="Todos los estados" />
           <div>
@@ -159,7 +160,7 @@ export default function AdminInscripcionesPage() {
         </div>
       </div>
 
-      {loading  && <Spinner label="Cargando inscripciones..." />}
+      {loading && <Spinner label="Cargando inscripciones..." />}
       {!loading && error && (
         <div className="rounded-md border border-danger/30 bg-danger/5 p-4 text-sm text-danger">{error}</div>
       )}
@@ -241,19 +242,19 @@ export default function AdminInscripcionesPage() {
 
             <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2 text-sm">
               {[
-                ['Apellido',     detalle.apellido   || '—'],
-                ['Nombre',       detalle.nombre     || '—'],
-                ['DNI',          detalle.dni],
-                ['Fecha nac.',   formatearFecha(detalle.fecha_nacimiento)],
-                ['Edad',         `${detalle.edad} años`],
-                ['Sexo',         detalle.sexo],
-                ['Email',        detalle.email      || '—'],
-                ['Teléfono',     detalle.telefono   || '—'],
-                ['Ciudad',       detalle.ciudad     || '—'],
-                ['Carrera',      detalle.carrera_nombre],
-                ['Tipo',         TIPO_CARRERA_LABEL[detalle.carrera_tipo] || detalle.carrera_tipo],
-                ['Modalidad',    detalle.modalidad_nombre],
-                ['Categoría',    detalle.categoria],
+                ['Apellido', detalle.apellido || '—'],
+                ['Nombre', detalle.nombre || '—'],
+                ['DNI', detalle.dni],
+                ['Fecha nac.', formatearFecha(detalle.fecha_nacimiento)],
+                ['Edad', `${detalle.edad} años`],
+                ['Sexo', detalle.sexo],
+                ['Email', detalle.email || '—'],
+                ['Teléfono', detalle.telefono || '—'],
+                ['Ciudad', detalle.ciudad || '—'],
+                ['Carrera', detalle.carrera_nombre],
+                ['Tipo', TIPO_CARRERA_LABEL[detalle.carrera_tipo] || detalle.carrera_tipo],
+                ['Modalidad', detalle.modalidad_nombre],
+                ['Categoría', detalle.categoria],
                 ['Fecha inscr.', formatearFechaHora(detalle.fecha_inscripcion)],
               ].map(([label, value]) => (
                 <div key={label}>
@@ -287,6 +288,23 @@ export default function AdminInscripcionesPage() {
                 />
               </div>
             </div>
+
+            {detalle.cert_medico && (
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate mb-2">Certificado médico</p>
+                <button
+                  type="button"
+                  onClick={() => verCertMedico(detalle.id)}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-coral hover:underline"
+                >
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round"
+                      d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                  </svg>
+                  Ver certificado médico
+                </button>
+              </div>
+            )}
 
             {/* Comprobante */}
             {detalle.comprobante ? (
