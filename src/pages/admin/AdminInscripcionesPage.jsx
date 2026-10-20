@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getInscripciones, verComprobante } from '../../api/inscripciones.api';
 import { aprobarPago, rechazarPago, reabrirPago } from '../../api/pagos.api';
 import { exportarInscriptosAprobados } from '../../api/exportacion.api';
 import { notificarAprobacion } from '../../api/emails.api';
