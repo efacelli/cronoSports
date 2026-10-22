@@ -255,6 +255,14 @@ export default function AdminInscripcionesPage() {
                 ['Modalidad', detalle.modalidad_nombre],
                 ['Categoría', detalle.categoria],
                 ['Fecha inscr.', formatearFechaHora(detalle.fecha_inscripcion)],
+                ['Fecha inscr.', formatearFechaHora(detalle.fecha_inscripcion)],
+                ...(detalle.talle ? [['Talle', detalle.talle]] : []),
+                ...(detalle.club ? [['Club', detalle.club]] : []),
+                ...(detalle.tel_emergencia ? [['Tel. emergencia', detalle.tel_emergencia]] : []),
+                ...(detalle.obra_social ? [['Obra social', detalle.obra_social]] : []),
+                ...(detalle.grupo_sanguineo ? [['Grupo sanguíneo', detalle.grupo_sanguineo]] : []),
+                ...(detalle.fecha_examen_medico ? [['Último examen', formatearFecha(detalle.fecha_examen_medico)]] : []),
+                ...(detalle.link_ironman ? [['Link Ironman', detalle.link_ironman]] : []),
               ].map(([label, value]) => (
                 <div key={label}>
                   <dt className="text-xs uppercase tracking-wide text-slate">{label}</dt>
